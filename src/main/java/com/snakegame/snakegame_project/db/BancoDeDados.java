@@ -1,9 +1,12 @@
 package com.snakegame.snakegame_project.db;
 
 import com.snakegame.snakegame_project.game.model.Jogador;
+import org.springframework.data.domain.Sort;
 
 import java.io.File;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class BancoDeDados {
@@ -84,21 +87,25 @@ public class BancoDeDados {
     }
 
     // Lista ranking (opcional)
-    public static void listarRanking() {
-        String sql = "SELECT nome, pontuacao FROM pontuacoes ORDER BY pontuacao DESC LIMIT 10";
+    public static List<Jogador> listarRanking() {
+        String sql = "SELECT nome, pontuacao FROM pontuacoes";
 
         try (Connection conn = DriverManager.getConnection(URL);
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
 
-            System.out.println("🏆 Ranking:");
+            List<Jogador> ranking = new ArrayList<>();
+
             while (rs.next()) {
                 System.out.println(rs.getString("nome") + " - " + rs.getInt("pontuacao") + " pontuacao");
+                ranking.add(new Jogador(rs.getString("nome"), "", rs.getInt("pontuacao")));
             }
+            return ranking;
 
         } catch (SQLException e) {
             System.out.println("Erro ao listar ranking: " + e.getMessage());
         }
+        return new ArrayList<>();
     }
 
     public static Optional<Jogador> getJogador(String usuario) {

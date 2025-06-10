@@ -40,27 +40,31 @@ public class TelaInicial extends JFrame {
         JButton botaoJogar = new JButton("Jogar");
         JButton botaoLogin = new JButton("Login");
         JButton botaoCadastro = new JButton("Cadastro");
+        JButton botaoRanking = new JButton("Rankings");
 
         configurarBotao(botaoJogar);
         configurarBotao(botaoLogin);
         configurarBotao(botaoCadastro);
+        configurarBotao(botaoRanking);
 
         // Define posição manual dos botões (layout null)
         int botaoLargura = 200;
         int botaoAltura = 50;
         int x = (LARGURA_TELA - botaoLargura) / 2;
-        int y = 220;
+        int y = 150;
 
         botaoJogar.setBounds(x, y, botaoLargura, botaoAltura);
         botaoLogin.setBounds(x, y + 80, botaoLargura, botaoAltura);
         botaoCadastro.setBounds(x-25, y + 160, botaoLargura+50, botaoAltura);
-        labelTitulo.setBounds(x -25,y-200, LARGURA_TELA, botaoAltura);
+        botaoRanking.setBounds(x-25, y + 240, botaoLargura+50, botaoAltura);
+        labelTitulo.setBounds(x -25,y-150, LARGURA_TELA, botaoAltura);
 
 
 
         imagemFundo.add(botaoJogar);
         imagemFundo.add(botaoLogin);
         imagemFundo.add(botaoCadastro);
+        imagemFundo.add(botaoRanking);
         imagemFundo.add(labelTitulo);
 
 
@@ -82,6 +86,11 @@ public class TelaInicial extends JFrame {
             new Login();
             Login.botaoCadastro.setVisible(true);
             Login.botaoEntrar.setVisible(false);
+            this.dispose();
+        });
+        botaoRanking.addActionListener(e -> {
+
+            new TelaRanking();
             this.dispose();
         });
 
